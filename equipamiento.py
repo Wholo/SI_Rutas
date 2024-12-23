@@ -1,6 +1,3 @@
-from logica_borrosa import temporal
-
-
 def recomendar_equipamiento(temperatura, terreno, desnivel, longitud, temporal):
     """
     Genera recomendaciones de equipamiento basadas en la temperatura y el terreno.
@@ -21,8 +18,6 @@ def recomendar_equipamiento(temperatura, terreno, desnivel, longitud, temporal):
     elif temperatura > 25:
         recomendaciones.append("Protección solar")
         recomendaciones.append("Gorra o sombrero")
-        recomendaciones.append("Botas técnicas")
-        recomendaciones.append("Gafas de sol")
 
     # Recomendaciones según el terreno
     if terreno <= 5:
@@ -49,11 +44,13 @@ def recomendar_equipamiento(temperatura, terreno, desnivel, longitud, temporal):
         recomendaciones.append("Recipientes adicionales para agua")
 
     #Recomendaciones según el temporal
-    if 3 < temporal <= 7:
+    if temporal <= 3:
+        recomendaciones.append("Gafas de sol")
+    elif 3 < temporal <= 7:
         recomendaciones.append("Chubasquero")
         recomendaciones.append("Toalla")
-    elif temporal < 7:
+    else:
+        recomendaciones.append("Cortavientos")
         recomendaciones.append("Linterna frontal")
-        recomendaciones.append("Chubasquero")
 
     return recomendaciones

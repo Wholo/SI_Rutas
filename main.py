@@ -13,7 +13,18 @@ if __name__ == "__main__":
     longitud = int(input("Ingrese la longitud de la ruta (en kilómetros): "))
     terreno = int(input("Ingrese la estabilidad del terreno (0-10): "))
     temperatura = int(input("Ingrese la temperatura (en grados Celsius): "))
-    temporal = int(input("Ingrese la condición temporal. Despejado(0-3) Lluvia(3-7) Niebla(7-10): "))
+    opcion_temporal = int(input("Ingrese el temporal.\n1.Despejado\n2.Lluvia\n3.Niebla\nOpción: "))
+
+    # Mapeo de la opción elegida a un valor numérico adecuado para la lógica borrosa
+    if opcion_temporal == 1:
+        temporal = 1  # valor representativo para 'normal'
+    elif opcion_temporal == 2:
+        temporal = 5  # valor representativo para 'lluvia'
+    elif opcion_temporal == 3:
+        temporal = 9  # valor representativo para 'niebla'
+    else:
+        print("Opción no válida, se asume normal.")
+        temporal = 1
 
 
     # Calcular la dificultad de la ruta
@@ -30,4 +41,3 @@ if __name__ == "__main__":
     print("Recomendaciones de equipamiento:")
     for item in equipo:
         print(f"- {item}")
-
