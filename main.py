@@ -1,11 +1,12 @@
 from logica_borrosa import calcular_dificultad, temperatura
 from rutas import crear_grafo_rutas, dibujar_grafo
 from equipamiento import recomendar_equipamiento
+from logica_borrosa import interpretar_dificultad
 
 if __name__ == "__main__":
     # Crear y dibujar el grafo de rutas
-  #  grafo = crear_grafo_rutas()
-   # dibujar_grafo(grafo)
+    #grafo = crear_grafo_rutas()
+    #dibujar_grafo(grafo)
 
     # Ejemplo de parámetros
     desnivel = int(input("Ingrese el desnivel (en metros): "))
@@ -14,16 +15,6 @@ if __name__ == "__main__":
     temperatura = int(input("Ingrese la temperatura (en grados Celsius): "))
     temporal = int(input("Ingrese la condición temporal. Despejado(0-3) Lluvia(3-7) Niebla(7-10): "))
 
-    # Convierte el valor numérico de dificultad en una categoría de texto.
-    def interpretar_dificultad(valor_dificultad):
-        if valor_dificultad <= 0.3:
-            return "Muy Fácil"
-        elif valor_dificultad <= 0.6:
-            return "Fácil"
-        elif valor_dificultad <= 0.8:
-            return "Difícil"
-        else:
-            return "Muy Difícil"
 
     # Calcular la dificultad de la ruta
     dificultad = calcular_dificultad(desnivel, longitud, terreno, temperatura, temporal)
@@ -35,7 +26,7 @@ if __name__ == "__main__":
         print("No se pudo calcular la dificultad de la ruta.")
 
     # Sugerir equipamiento
-    equipo = recomendar_equipamiento(temperatura, terreno, desnivel, longitud)
+    equipo = recomendar_equipamiento(temperatura, terreno, desnivel, longitud, temporal)
     print("Recomendaciones de equipamiento:")
     for item in equipo:
         print(f"- {item}")

@@ -32,10 +32,12 @@ temporal['despejado'] = fuzz.trimf(temporal.universe, [0, 0, 4])
 temporal['lluvia'] = fuzz.trimf(temporal.universe, [2, 5, 8])
 temporal['niebla'] = fuzz.trimf(temporal.universe, [5, 10, 10])
 
-dificultad['muy_facil'] = fuzz.trimf(dificultad.universe, [0, 0, 0.3])
-dificultad['facil'] = fuzz.trimf(dificultad.universe, [0.2, 0.4, 0.6])
-dificultad['dificil'] = fuzz.trimf(dificultad.universe, [0.5, 0.8, 1])
-dificultad['muy_dificil'] = fuzz.trimf(dificultad.universe, [0.7, 1, 1])
+dificultad['muy_facil'] = fuzz.trimf(dificultad.universe, [0.0, 0.0, 0.2])
+dificultad['facil']     = fuzz.trimf(dificultad.universe, [0.0, 0.2, 0.4])
+dificultad['media']     = fuzz.trimf(dificultad.universe, [0.3, 0.5, 0.7])
+dificultad['dificil']   = fuzz.trimf(dificultad.universe, [0.5, 0.7, 0.9])
+dificultad['muy_dificil'] = fuzz.trimf(dificultad.universe, [0.8, 1.0, 1.0])
+
 
 # Definición de categorías para las variables
 categorias = {
@@ -56,17 +58,15 @@ for desn, longi, terr, temp, clima in product(categorias['desnivel'],
                                               categorias['terreno'],
                                               categorias['temperatura'],
                                               categorias['temporal']):
-
-    # Criterios generales:
-    # Caso máximo de dificultad
     if desn == 'alto' and longi == 'larga' and terr == 'inestable' and temp == 'calor':
         diff = 'muy_dificil'
-    # Caso mínimo de dificultad
     elif desn == 'bajo' and longi == 'corta' and terr == 'estable' and temp == 'templado' and clima == 'normal':
         diff = 'muy_facil'
-    # Si hay inestabilidad, calor, lluvia o niebla, mínimo 'dificil'
     elif terr == 'inestable' or temp == 'calor' or clima in ['lluvia', 'niebla']:
         diff = 'dificil'
+    elif desn == 'medio' or longi == 'media':
+        # Si no se cumple lo anterior, pero es un caso "ni fácil ni difícil", usamos "media".
+        diff = 'media'
     else:
         diff = 'facil'
 
@@ -90,3 +90,15 @@ def calcular_dificultad(desnivel_val, longitud_val, terreno_val, temperatura_val
     dificultad_sim.compute()
     return dificultad_sim.output['dificultad']
 
+    # Convierte el valor numérico de dificultad en una categoría de texto.
+def interpretar_dificultad(valor_dificultad):
+    if valor_dificultad <= 0.2:
+        return "Muy Fácil"
+    elif valor_dificultad <= 0.4:
+        return "Fácil"
+    elif valor_dificultad <= 0.6:
+        return "Media"
+    elif valor_dificultad <= 0.8:
+        return "Difícil"
+    else:
+        return "Muy Difícil"
