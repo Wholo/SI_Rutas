@@ -1,9 +1,10 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 # Ajusta estas importaciones a la ruta real de tus archivos:
 from logica_borrosa import calcular_dificultad, interpretar_dificultad
 from equipamiento import recomendar_equipamiento
+from datos_meteorologicos import obtener_datos_meteorologicos
 
 def mostrar_dificultad():
     """
@@ -82,6 +83,18 @@ def mostrar_equipamiento():
         equip_window.title("Error")
         tk.Label(equip_window, text="Error: valores numéricos inválidos").pack(pady=10)
 
+def mostrar_datos_meteorologicos():
+    ciudad = entry_ciudad.get()
+    datos_meteo = obtener_datos_meteorologicos(ciudad)
+
+    if datos_meteo:
+        messagebox.showinfo("Datos Meteorológicos",
+                            f"Temperatura: {datos_meteo['temperatura']-273}°C\n"
+                            f"Clima: {datos_meteo['clima']}")
+    else:
+        messagebox.showerror("Error", "No se pudieron obtener los datos meteorológicos.")
+
+
 # Crear la ventana principal
 root = tk.Tk()
 root.title("Sistema de Rutas - Interfaz de Usuario")
@@ -126,5 +139,14 @@ label_resultado.pack()
 # Botón para sugerir equipamiento
 tk.Button(root, text="Sugerir Equipamiento", command=mostrar_equipamiento).pack(pady=5)
 
+#Botón para elegir una ciudad
+tk.Label(root, text="Ciudad:").pack()
+entry_ciudad = tk.Entry(root)
+entry_ciudad.pack()
+
+tk.Button(root, text="Obtener Datos Meteorológicos", command=mostrar_datos_meteorologicos).pack()
+
 # Ejecutar el bucle principal de la interfaz
 root.mainloop()
+
+
