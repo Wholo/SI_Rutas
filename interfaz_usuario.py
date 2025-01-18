@@ -160,7 +160,7 @@ label_imagen = tk.Label(root, text="No se ha seleccionado ninguna imagen", fg="b
 label_imagen.pack()
 
 # Botón para calcular dificultad
-tk.Button(root, text="Calcular Dificultad", command=mostrar_dificultad).pack(pady=5)
+tk.Button(root, text="Calcular Dificultad Ruta", command=mostrar_dificultad).pack(pady=5)
 
 # Label para mostrar el resultado del cielo (despejado, nubes, lluvia)
 label_temporal = tk.Label(root, text="", fg="green", pady=5)
