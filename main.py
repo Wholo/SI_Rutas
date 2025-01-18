@@ -41,3 +41,5 @@ if __name__ == "__main__":
     print("Recomendaciones de equipamiento:")
     for item in equipo:
         print(f"- {item}")
+
+
